@@ -13,8 +13,10 @@ static char	*ft_procwidth(t_struct *p, char *space)
 int		ft_print_char(t_struct *p, char c)
 {
 	char	*res;
+	int		flag;
 	t_space	*space; // структура для спейса
 
+	flag = DISABLED;
 	if (p->precision > 0)
 		return (UNDEFINED); // точность для чара?
 	space = ft_prepspace(); // инитим спейс
@@ -23,7 +25,7 @@ int		ft_print_char(t_struct *p, char c)
 		ft_freespace(space);
 		return (ERROR);
 	}
-	if (p->minus == ENABLED) // если минус то сначала печаем спейс а потом наш чар
+	if (p->minus == ENABLED)
 		p->nbyte += ft_putchar(c) + ft_putstr(res);
 	else
 		p->nbyte += ft_putstr(res) + ft_putchar(c);

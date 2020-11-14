@@ -1,27 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_string.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/14 17:24:40 by ezachari          #+#    #+#             */
+/*   Updated: 2020/11/14 17:24:41 by ezachari         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
-// смотрим точность
+
 static char	*ft_procprecision(t_struct *p, char *space, char *s)
 {
 	if (p->precision == DISABLED ||
 						(p->precision != 0 && p->precision >= (int)ft_strlen(s)))
-		return (s); // если нет . или точность больше или равна длине аргумента то вернем сразу аргумент
+		return (s);
 	if (!(space = malloc(sizeof(char) * (p->precision + 1))))
 		return (NULL);
-	ft_strncpy(space, s, p->precision); // копируем в спейс на результат до определенной точности
+	ft_strncpy(space, s, p->precision);
 	space[p->precision] = '\0';
 	return (space);
 }
-// смотрим ширину
 static char	*ft_procwidth(t_struct *p, char *space, char *s)
 {
 	int	slen;
 
-	slen = ft_strlen(s); // считаем длину результата
-	if (p->width <= slen) // если ширина меньше длины результата
+	slen = ft_strlen(s);
+	if (p->width <= slen)
 		return (s);
-	if (!(space = ft_fillspace(p->width, p->padding))) // заполняем спейс падингом
+	if (!(space = ft_fillspace(p->width, p->padding)))
 		return (NULL);
-	if (p->minus == ENABLED) // если минус то копируем в спейс
+	if (p->minus == ENABLED)
 		ft_strncpy(space, s, slen);
 	else
 		ft_strncpy(&space[p->width - slen], s, slen);
@@ -36,7 +47,7 @@ int	ft_print_str(t_struct *p, char *res)
 	flag = DISABLED;
 	if (res == NULL)
 	{
-		res = ft_strndup("(null)", 6); // случай для %s 0 %s NULL
+		res = ft_strndup("(null)", 6);
 		flag = ENABLED;
 	}
 	space = ft_prepspace();
@@ -46,9 +57,9 @@ int	ft_print_str(t_struct *p, char *res)
 		ft_freespace(space);
 		return (ERROR);
 	}
-	p->nbyte += ft_putstrn(res, ft_strlen(res)); // печатаем результат
+	p->nbyte += ft_putstrn(res, ft_strlen(res));
 	ft_freespace(space);
 	if (flag == ENABLED)
-		free(res); // чистим рез если малочили для NULL
+		free(res);
 	return (0);
 }

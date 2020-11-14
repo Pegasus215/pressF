@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/14 14:32:40 by ezachari          #+#    #+#             */
+/*   Updated: 2020/11/14 16:52:04 by ezachari         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 // Смотрим тип
 static int	ft_condition(char *format, va_list ap, t_struct *p)
@@ -8,6 +20,10 @@ static int	ft_condition(char *format, va_list ap, t_struct *p)
 		return (ft_prestr(ap, p));
 	else if (*format == 'd' || *format == 'i')
 		return (ft_preint(ap, p));
+	else if (*format == 'x')
+		return (ft_prehexa(ap, p, HEX_LOW));
+	else if (*format == 'X')
+		return (ft_prehexa(ap, p, HEX_UP));
 	else
 		return (ERROR);
 }
@@ -30,9 +46,9 @@ static int	ft_format(char *format, va_list ap)
 	p.nbyte = 0;
 	if (format == 0)
 		return (ERROR);
-	while (*format)
+	while (*format != '\0')
 	{
-		while (*format != '%' && format)
+		while (*format != '%' && *format) // format -> *format
 		{
 			p.nbyte += ft_putchar(*format);
 			format++;

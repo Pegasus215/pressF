@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_int.c                                     :+:      :+:    :+:   */
+/*   ft_print_hexa.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/14 17:24:47 by ezachari          #+#    #+#             */
-/*   Updated: 2020/11/14 17:25:11 by ezachari         ###   ########.fr       */
+/*   Created: 2020/11/14 15:46:20 by ezachari          #+#    #+#             */
+/*   Updated: 2020/11/14 16:54:23 by ezachari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+// смотрим точность
 static char	*ft_procprecision(t_struct *p, char *space, char *s)
 {
 	int	slen;
@@ -26,7 +27,7 @@ static char	*ft_procprecision(t_struct *p, char *space, char *s)
 	ft_strcpy(&space[p->precision - slen], s);
 	return (space);
 }
-
+// смотрим ширину
 static char	*ft_procwidth(t_struct *p, char *space, char *s)
 {
 	int	slen;
@@ -36,28 +37,27 @@ static char	*ft_procwidth(t_struct *p, char *space, char *s)
 		return (s);
 	if (p->zero == ENABLED &&
 					p->precision == DISABLED && p->minus == DISABLED)
-		p->padding = '0';
+		p->padding = '0'; // если есть флаг зеро и нет -. то заменяем паддинг на 0
 	if (p->width < slen)
-		p->width = slen;
-	if (p->sign && p->width == slen)
+		p->width = slen; // если ширина меньше длины результата то делаем ее равной длине результата
+	if (p->sign && p->width == slen) // если есть знак минус то увеличиваем ширину на 1
 		p->width++;
-	if (!(space = ft_fillspace(p->width, p->padding)))
+	if (!(space = ft_fillspace(p->width, p->padding))) // заполняем спейс 0
 		return (NULL);
-	if (p->minus == ENABLED && p->sign)
+	if (p->minus == ENABLED && p->sign) // если минус и отрицательное то копируем +1
 		ft_strncpy(space + 1, s, slen);
 	else if (p->minus == ENABLED)
-		ft_strncpy(space, s, slen);
+		ft_strncpy(space, s, slen); // копируем в конец
 	else
-		ft_strncpy(&space[p->width - slen], s, slen);
+		ft_strncpy(&space[p->width - slen], s, slen); // копируем в начало
 	return (ft_procsign(p, space, slen));
 }
 
-int		ft_print_int(t_struct *p, char *res)
+int		ft_print_hexa(t_struct *p, char *res)
 {
 	t_space	*space;
-
-	space = ft_prepspace();
-	res = ft_prepsign(p, res);
+	space = ft_prepspace();// инит спейса
+	res = ft_prepsign(p, res); // смотрим знак -
 	if ((res = ft_procprecision(p, space->precision, res)) == NULL
 			|| (res = ft_procwidth(p, space->width, res)) == NULL)
 	{

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_parser.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/14 14:32:32 by ezachari          #+#    #+#             */
+/*   Updated: 2020/11/14 17:25:17 by ezachari         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 // Смотрим Флаги
 static void	ft_parse_flags(char **format, t_struct *p)
@@ -68,7 +80,7 @@ int	ft_parse(char **format, va_list ap, t_struct *p)
 	ft_parse_flags(format, p);// смотрим флаг
 	ft_parse_width(format, ap, p);// смотрим ширину
 	ft_parse_precision(format, ap, p);// смотрим точность
-	if (ft_set(**format, CONV) == -1)// если не находим тип то ретурним -1
+	if (ft_set(**format, CONV) == 0)// если не находим тип то ретурним -1
 		return (ERROR);
 	return (0);
 }

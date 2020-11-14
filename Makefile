@@ -34,7 +34,8 @@ SRCS	=	ft_prep.c \
 			ft_uitoa.c \
 			ft_set.c \
 			ft_memset.c \
-			ft_calloc.c
+			ft_calloc.c \
+			ft_print_hexa.c
 OBJS	=	${SRCS:.c=.o}
 
 RM		=	rm -f
