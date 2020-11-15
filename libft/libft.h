@@ -6,7 +6,7 @@
 /*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 13:07:38 by ezachari          #+#    #+#             */
-/*   Updated: 2020/11/13 21:32:05 by ezachari         ###   ########.fr       */
+/*   Updated: 2020/11/15 16:49:59 by ezachari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 					void (*del)(void *));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-char				*ft_strndup(const char *s1, int size);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strdup(const char *str);
 char				*ft_strchr(const char *str, int ch);
@@ -76,4 +75,6 @@ int					ft_putstr(char *s);
 int					ft_putcharn(char c, int n);
 int					ft_putstrn(char *s, int n);
 char				*ft_strcpy(char *dest, char *src);
+char				*ft_strndup(const char *s1, int size);
+char				*ft_lltoa_base(long long int n, const char *base);
 #endif

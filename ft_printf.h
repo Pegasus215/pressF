@@ -6,7 +6,7 @@
 /*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 14:32:49 by ezachari          #+#    #+#             */
-/*   Updated: 2020/11/14 16:53:46 by ezachari         ###   ########.fr       */
+/*   Updated: 2020/11/15 17:36:28 by ezachari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdint.h>
-# include "libft.h"
+# include "libft/libft.h"
 
 # define FLAG "-0"
 # define CONV "cspdiuxX%"
@@ -26,10 +26,10 @@
 # define HEX_LOW "0123456789abcdef"
 # define HEX_UP "0123456789ABCDEF"
 # define ERROR -1
-# define UNDEFINED -1
 # define DISABLED -1
 # define ENABLED 1
 # define SKIP 0
+
 typedef struct	s_struct
 {
 	int		nbyte;
@@ -46,6 +46,7 @@ typedef struct	s_space
 	char	*precision;
 	char	*width;
 }				t_space;
+int				ft_print_unsigned(t_struct *p, char *res);
 int				ft_print_hexa(t_struct *p, char *res);
 char			*ft_procsign(t_struct *p, char *space, int slen);
 char			*ft_prepsign(t_struct *p, char *s);
@@ -61,5 +62,7 @@ t_space			*ft_prepspace(void);
 char			*ft_fillspace(int size, char padding);
 void			ft_freespace(t_space *space);
 int				ft_parse(char **format, va_list ap, t_struct *p);
+int				ft_print_pointer(va_list ap, t_struct *p);
+int				ft_print_spec(t_struct *p);
 int				ft_printf(const char *format, ...);
 #endif

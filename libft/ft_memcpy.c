@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/14 14:33:52 by ezachari          #+#    #+#             */
-/*   Updated: 2020/11/14 17:06:37 by ezachari         ###   ########.fr       */
+/*   Created: 2020/10/28 14:49:28 by ezachari          #+#    #+#             */
+/*   Updated: 2020/11/09 16:49:41 by ezachari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int main(void)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	//printf("\n|ret = %d|", ft_printf("***%0*d***", 10, 1111111111));
-	//printf("\n|ret = %d|", printf("***%0*d***", 10,  1111111111));
-	// printf("%d", printf("%-8.5x\n", 34));
-	// printf("%d", ft_printf("%-8.5x\n", 34));
-	printf("%-100%");
-	return (1);
+	const unsigned char	*temps;
+	unsigned char		*tempd;
+
+	temps = src;
+	tempd = dest;
+	if (dest == NULL && src == NULL)
+		return (NULL);
+	while (n-- > 0)
+		*tempd++ = *temps++;
+	return (dest);
 }

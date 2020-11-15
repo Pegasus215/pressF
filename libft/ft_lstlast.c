@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/14 14:34:03 by ezachari          #+#    #+#             */
-/*   Updated: 2020/11/14 14:34:04 by ezachari         ###   ########.fr       */
+/*   Created: 2020/11/04 15:40:34 by ezachari          #+#    #+#             */
+/*   Updated: 2020/11/09 16:49:47 by ezachari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_itoa_base(unsigned int n, const char *base)
+t_list	*ft_lstlast(t_list *lst)
 {
-	unsigned int	div;
-	unsigned int	len;
-	unsigned int	base_len;
-	char			*res;
+	t_list	*last;
 
-	div = n;
-	len = (n == 0) ? 1 : 0;
-	base_len = (unsigned int)ft_strlen((char *)base);
-	while (div != 0)
-	{
-		div = div / base_len;
-		len++;
-	}
-	if (!(res = ft_calloc((len + 1), sizeof(char))))
+	last = NULL;
+	if (lst == NULL)
 		return (NULL);
-	res[0] = '0';
-	while (n != 0)
+	while (lst)
 	{
-		len--;
-		res[len] = base[(n % base_len)];
-		n =  n / base_len;
+		if (lst->next == NULL)
+		{
+			last = lst;
+			return (last);
+		}
+		lst = lst->next;
 	}
-	return (res);
+	return (last);
 }

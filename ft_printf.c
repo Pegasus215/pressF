@@ -6,12 +6,12 @@
 /*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 14:32:40 by ezachari          #+#    #+#             */
-/*   Updated: 2020/11/14 16:52:04 by ezachari         ###   ########.fr       */
+/*   Updated: 2020/11/15 17:32:25 by ezachari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-// Смотрим тип
+
 static int	ft_condition(char *format, va_list ap, t_struct *p)
 {
 	if (*format == 'c')
@@ -24,10 +24,16 @@ static int	ft_condition(char *format, va_list ap, t_struct *p)
 		return (ft_prehexa(ap, p, HEX_LOW));
 	else if (*format == 'X')
 		return (ft_prehexa(ap, p, HEX_UP));
+	else if (*format == 'u')
+		return (ft_preunsigned(ap, p));
+	else if (*format == 'p')
+		return (ft_print_pointer(ap, p));
+	else if (*format == '%')
+		return (ft_print_spec(p));
 	else
 		return (ERROR);
 }
-// Инит структуры
+
 static void	ft_prep(t_struct *p)
 {
 	p->width = DISABLED;
@@ -38,7 +44,6 @@ static void	ft_prep(t_struct *p)
 	p->sign = '\0';
 }
 
-// Здесь происходит поиск % и вызов парсера
 static int	ft_format(char *format, va_list ap)
 {
 	t_struct p;
@@ -48,7 +53,7 @@ static int	ft_format(char *format, va_list ap)
 		return (ERROR);
 	while (*format != '\0')
 	{
-		while (*format != '%' && *format) // format -> *format
+		while (*format != '%' && *format)
 		{
 			p.nbyte += ft_putchar(*format);
 			format++;
@@ -56,7 +61,7 @@ static int	ft_format(char *format, va_list ap)
 		if (*format == '%')
 		{
 			format++;
-			ft_prep(&p); // Инит структуры
+			ft_prep(&p);
 			if (ft_parse(&format, ap, &p) == ERROR)
 				return (ERROR);
 			if (ft_condition(format, ap, &p) == ERROR)
@@ -67,11 +72,10 @@ static int	ft_format(char *format, va_list ap)
 	return (p.nbyte);
 }
 
-//основная функция
-int		ft_printf(const char *format, ...)
+int			ft_printf(const char *format, ...)
 {
-	va_list	ap; // Лист аргументов
-	int		nbyte; // Кол-во записанных байт
+	va_list	ap;
+	int		nbyte;
 
 	va_start(ap, format);
 	if ((nbyte = ft_format((char *)format, ap)) == ERROR)

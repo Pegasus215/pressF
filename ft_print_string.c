@@ -6,16 +6,16 @@
 /*   By: ezachari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 17:24:40 by ezachari          #+#    #+#             */
-/*   Updated: 2020/11/14 17:24:41 by ezachari         ###   ########.fr       */
+/*   Updated: 2020/11/15 17:43:33 by ezachari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*ft_procprecision(t_struct *p, char *space, char *s)
+static char		*ft_procprecision(t_struct *p, char *space, char *s)
 {
-	if (p->precision == DISABLED ||
-						(p->precision != 0 && p->precision >= (int)ft_strlen(s)))
+	if (p->precision == DISABLED || (p->precision != 0 &&
+								p->precision >= (int)ft_strlen(s)))
 		return (s);
 	if (!(space = malloc(sizeof(char) * (p->precision + 1))))
 		return (NULL);
@@ -23,9 +23,10 @@ static char	*ft_procprecision(t_struct *p, char *space, char *s)
 	space[p->precision] = '\0';
 	return (space);
 }
-static char	*ft_procwidth(t_struct *p, char *space, char *s)
+
+static char		*ft_procwidth(t_struct *p, char *space, char *s)
 {
-	int	slen;
+	int		slen;
 
 	slen = ft_strlen(s);
 	if (p->width <= slen)
@@ -39,10 +40,10 @@ static char	*ft_procwidth(t_struct *p, char *space, char *s)
 	return (space);
 }
 
-int	ft_print_str(t_struct *p, char *res)
+int				ft_print_str(t_struct *p, char *res)
 {
-	t_space	*space;
-	int		flag;
+	t_space		*space;
+	int			flag;
 
 	flag = DISABLED;
 	if (res == NULL)
